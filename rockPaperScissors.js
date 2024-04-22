@@ -1,6 +1,7 @@
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
+const buttons = document.querySelectorAll(".button");
 const playerScoreDisplay = document.createElement("div");
 const computerScoreDisplay = document.createElement("div");
 
@@ -14,14 +15,30 @@ document.body.appendChild(computerScoreDisplay);
 playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
 computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
 
-rock.addEventListener("click", () => {
-  playGame("rock");
-});
-paper.addEventListener("click", () => {
-  playGame("paper");
-});
-scissors.addEventListener("click", () => {
-  playGame("scissors");
+// rock.addEventListener("click", () => {
+//   playGame("rock");
+// });
+// paper.addEventListener("click", () => {
+//   playGame("paper");
+// });
+// scissors.addEventListener("click", () => {
+//   playGame("scissors");
+// });
+
+// document.addEventListener("click", (event) => {
+//   if(event.target.matches("#rock")){
+//     playGame("rock");
+//   }else if(event.target.matches("#paper")){
+//     playGame("paper");
+//   }else if(event.target.matches("#scissors")){
+//     playGame("scissors")
+//   }
+// })
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playGame(button.id);
+  });
 });
 
 function updateScoreDisplays() {
@@ -37,6 +54,14 @@ function getComputerChoice() {
     return "paper";
   } else {
     return "scissors";
+  }
+}
+
+function gameOver() {
+  if (playerScore === 5) {
+    return alert("Player Wins Game!");
+  } else if (computerScore === 5) {
+    return alert("Computer Wins Game!");
   }
 }
 
@@ -91,16 +116,12 @@ function playGame(choice) {
         computerScore++;
       }
       break;
+
     default:
       result = "Invalid Choice!";
       break;
   }
   newDiv.textContent = result;
   updateScoreDisplays();
-
-  if (playerScore === 5) {
-    alert("Player Wins Game!");
-  } else if (computerScore === 5) {
-    alert("Computer Wins Game!");
-  }
+  gameOver();
 }
